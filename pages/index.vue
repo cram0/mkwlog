@@ -165,6 +165,9 @@ const showResetConfirmation = ref(false);
 // About modal state
 const showAboutModal = ref(false);
 
+// Support modal state
+const showSupportModal = ref(false);
+
 // Popover state for confirmations
 const deleteProfilePopover = ref<Record<string, boolean>>({});
 const deleteTimePopover = ref<Record<number, boolean>>({});
@@ -1734,9 +1737,9 @@ const timeRankings = computed(() => {
 				<div class="absolute top-6 right-6 z-10 flex items-center gap-2">
 					<ClientOnly>
 						<UDropdownMenu :items="themeMenuItems" :ui="{ content: 'w-32' }">
-							<UButton variant="outline" color="neutral" size="sm" :icon="themeIcon" />
+							<UButton variant="outline" color="neutral" size="sm" :icon="themeIcon">{{}}</UButton>
 						</UDropdownMenu>
-						<UButton variant="outline" color="neutral" size="sm" icon="i-lucide-settings" @click="showSettingsModal = true" />
+						<UButton variant="outline" color="neutral" size="sm" icon="i-lucide-settings" @click="showSettingsModal = true">Settings</UButton>
 					</ClientOnly>
 				</div>
 				<!-- Hero Section -->
@@ -1803,7 +1806,7 @@ const timeRankings = computed(() => {
 								</div>
 
 								<div v-else class="space-y-3">
-									<UCard v-for="profile in profiles" :key="profile.id" :class="['transform cursor-pointer border-0', selectedProfileId === profile.id ? 'ring-primary-400 bg-primary-500/30' : '']" @click="selectProfile(profile.id)">
+									<UCard v-for="profile in profiles" :key="profile.id" :class="['cursor-pointer border-0 transition-colors', selectedProfileId === profile.id ? 'ring-primary bg-primary/10 dark:bg-primary/5 ring-2' : 'hover:ring-muted hover:ring-1']" @click="selectProfile(profile.id)">
 										<div class="flex items-center justify-between">
 											<!-- Character and Vehicle Info -->
 											<div class="flex w-full items-center">
@@ -2107,6 +2110,7 @@ const timeRankings = computed(() => {
 						<!-- Footer Buttons -->
 						<div class="flex items-center gap-4 pt-2">
 							<UButton variant="ghost" color="primary" size="xs" icon="i-lucide-info" class="text-xs" @click="showAboutModal = true"> About </UButton>
+							<UButton variant="ghost" color="pink" size="xs" icon="i-lucide-heart" class="text-xs" @click="showSupportModal = true"> Support </UButton>
 							<UButton variant="ghost" color="error" size="xs" icon="i-lucide-trash-2" class="text-xs" @click="showResetConfirmation = true"> Reset All Data </UButton>
 						</div>
 					</div>
@@ -2162,7 +2166,7 @@ const timeRankings = computed(() => {
 			</UModal>
 
 			<!-- About Modal -->
-			<UModal v-model:open="showAboutModal" title="About Mario Kart World Time Logger">
+			<UModal v-model:open="showAboutModal" title="About MKWLog">
 				<template #body>
 					<div class="space-y-4">
 						<div class="space-y-3 text-sm">
@@ -2176,8 +2180,43 @@ const timeRankings = computed(() => {
 
 							<p>
 								If you want to, you can check out the source code
-								<UButton variant="ghost" color="primary" trailing-icon="i-lucide-external-link" to="https://github.com/mkwlog" target="_blank" external> here </UButton>
+								<UButton variant="ghost" color="primary" trailing-icon="i-lucide-external-link" to="https://github.com/cram0/mkwlog" target="_blank" external> here </UButton>
 							</p>
+						</div>
+					</div>
+				</template>
+			</UModal>
+
+			<!-- Support Modal -->
+			<UModal v-model:open="showSupportModal" title="Support MKWLog">
+				<template #body>
+					<div class="space-y-4">
+						<div class="flex items-center gap-3 rounded-lg border border-pink-200 bg-pink-50 p-4 dark:border-pink-800 dark:bg-pink-900/20">
+							<UIcon name="i-lucide-heart" class="size-6 flex-shrink-0 text-pink-500" />
+							<div>
+								<p class="text-sm font-medium text-pink-800 dark:text-pink-200">Thanks for wanting to support MKWLog!</p>
+								<p class="text-xs text-pink-600 dark:text-pink-400">Your support helps keep this project running</p>
+							</div>
+						</div>
+
+						<div class="space-y-3 text-sm">
+							<h4 class="font-medium">Ways to contribute:</h4>
+
+							<div class="space-y-3">
+								<div class="border-muted bg-muted rounded-lg border p-3">
+									<h5 class="mb-1 font-medium">Contribute Code</h5>
+									<p class="text-muted mb-2 text-xs">If you know how to code and want to help improve MKWLog, feel free to fork the project and submit a pull request!</p>
+									<UButton variant="ghost" color="primary" size="xs" icon="i-lucide-git-fork" to="https://github.com/cram0/mkwlog" target="_blank" external class="text-xs"> Fork on GitHub </UButton>
+								</div>
+
+								<div class="border-muted bg-muted rounded-lg border p-3">
+									<h5 class="mb-1 font-medium">Help with Server Costs</h5>
+									<p class="text-muted mb-2 text-xs">If you'd like to help cover server costs and keep MKWLog running, you can leave a tip. Every bit helps!</p>
+									<UButton variant="ghost" color="primary" size="xs" icon="i-lucide-external-link" to="https://ko-fi.com/cram0" target="_blank" external class="text-xs"> Support on Ko-fi </UButton>
+								</div>
+							</div>
+
+							<p class="text-muted mt-3 text-xs">No pressure though - MKWLog will always be free to use regardless!</p>
 						</div>
 					</div>
 				</template>

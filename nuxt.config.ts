@@ -58,7 +58,7 @@ export default defineNuxtConfig({
 	},
 	ui: {
 		theme: {
-			colors: ['primary', 'secondary', 'tertiary', 'info', 'success', 'warning', 'error', 'gold', 'silver', 'bronze'],
+			colors: ['primary', 'secondary', 'tertiary', 'info', 'success', 'warning', 'error', 'gold', 'silver', 'bronze', 'pink'],
 		},
 	},
 });

@@ -6,6 +6,7 @@ export default defineAppConfig({
 			gold: 'yellow',
 			silver: 'slate',
 			bronze: 'red',
+			pink: 'pink',
 		},
 	},
 });
