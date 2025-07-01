@@ -1723,7 +1723,7 @@ const timeRankings = computed(() => {
 										<UIcon name="i-lucide-user" class="size-6" />
 										Your Combos
 									</h2>
-									<UButton color="primary" icon="i-lucide-plus" class="px-6 shadow-lg transition-all duration-200 hover:shadow-xl" @click="showCreateProfileForm = !showCreateProfileForm"> Add Combo </UButton>
+									<UButton color="primary" icon="i-lucide-plus" @click="showCreateProfileForm = !showCreateProfileForm"> Add Combo </UButton>
 								</div>
 							</template>
 
@@ -2066,14 +2066,14 @@ const timeRankings = computed(() => {
 							<span class="text-muted text-sm">Made with &#9829; by</span>
 							<UButton variant="ghost" color="primary" size="sm" icon="i-lucide-github" to="https://github.com/cram0" target="_blank" external class="font-semibold"> cram0 </UButton>
 						</div>
-						<div class="max-w-md text-xs text-gray-500 dark:text-gray-500">
+						<div class="text-muted max-w-md text-xs">
 							<p class="mb-1">Mario Kart and all related trademarks are property of Nintendo Co., Ltd.</p>
 							<p>This is an unofficial project. Nintendo owns everything, I own nothing.</p>
 						</div>
 						<!-- Footer Buttons -->
 						<div class="flex items-center gap-4 pt-2">
-							<UButton variant="ghost" color="primary" size="xs" icon="i-lucide-info" class="text-xs opacity-60 transition-opacity duration-200 hover:opacity-100" @click="showAboutModal = true"> About </UButton>
-							<UButton variant="ghost" color="error" size="xs" icon="i-lucide-trash-2" class="text-xs opacity-60 transition-opacity duration-200 hover:opacity-100" @click="showResetConfirmation = true"> Reset All Data </UButton>
+							<UButton variant="ghost" color="primary" size="xs" icon="i-lucide-info" class="text-xs" @click="showAboutModal = true"> About </UButton>
+							<UButton variant="ghost" color="error" size="xs" icon="i-lucide-trash-2" class="text-xs" @click="showResetConfirmation = true"> Reset All Data </UButton>
 						</div>
 					</div>
 				</UContainer>
