@@ -1,0 +1,202 @@
+[
+	{
+		"vehicleName": "Standard Kart",
+		"imageUrl": "https://img.game8.co/4181082/e97e7b7c3ca41e82f4901db609487c39.png/original",
+		"filename": "Standard_Kart.png"
+	},
+	{
+		"vehicleName": "Rally Kart",
+		"imageUrl": "https://img.game8.co/4181077/53330cd55b436f6a29fe714df13e6f06.png/original",
+		"filename": "Rally_Kart.png"
+	},
+	{
+		"vehicleName": "Plushbuggy",
+		"imageUrl": "https://img.game8.co/4181078/c936cc22f24d2e2eebf1c7cec1e89e08.png/original",
+		"filename": "Plushbuggy.png"
+	},
+	{
+		"vehicleName": "Baby Blooper",
+		"imageUrl": "https://img.game8.co/4181081/e2147d083b6d7d51c9e0de003eaa5414.png/original",
+		"filename": "Baby_Blooper.png"
+	},
+	{
+		"vehicleName": "Chargin' Truck",
+		"imageUrl": "https://img.game8.co/4181076/1faee60e81496ab037a7a68b5e3c8049.png/original",
+		"filename": "Chargin__Truck.png"
+	},
+	{
+		"vehicleName": "Zoom Buggy",
+		"imageUrl": "https://img.game8.co/4181075/60d3f9dee33e5911912873637d466ad1.png/original",
+		"filename": "Zoom_Buggy.png"
+	},
+	{
+		"vehicleName": "Blastronaut III",
+		"imageUrl": "https://img.game8.co/4181119/20b171c9c4dabb4d89773f0a56061963.png/original",
+		"filename": "Blastronaut_III.png"
+	},
+	{
+		"vehicleName": "Reel Racer",
+		"imageUrl": "https://img.game8.co/4181114/21030e8bbbda6e61f4f441d560afb233.png/original",
+		"filename": "Reel_Racer.png"
+	},
+	{
+		"vehicleName": "Carpet Flyer",
+		"imageUrl": "https://img.game8.co/4181109/cbe50a333a2c101880a7088d62210a60.png/original",
+		"filename": "Carpet_Flyer.png"
+	},
+	{
+		"vehicleName": "Billdozer",
+		"imageUrl": "https://img.game8.co/4188276/4a26b3c3c32a76e57c336bd4740cb9f4.png/original",
+		"filename": "Billdozer.png"
+	},
+	{
+		"vehicleName": "Big Horn",
+		"imageUrl": "https://img.game8.co/4181107/8d6e4c641f353d7fbd3a7a22968a757e.png/original",
+		"filename": "Big_Horn.png"
+	},
+	{
+		"vehicleName": "Hot Rod",
+		"imageUrl": "https://img.game8.co/4188274/c3227becda6dbe8cf3e14ad2b79c748e.png/original",
+		"filename": "Hot_Rod.png"
+	},
+	{
+		"vehicleName": "Stellar Sled",
+		"imageUrl": "https://img.game8.co/4188247/0387273b600fe12ff7575290ac614c78.png/original",
+		"filename": "Stellar_Sled.png"
+	},
+	{
+		"vehicleName": "Ribbit Revster",
+		"imageUrl": "https://img.game8.co/4188025/cfa73bf165cbea4bb4e1c128b4b6d76c.png/original",
+		"filename": "Ribbit_Revster.png"
+	},
+	{
+		"vehicleName": "Mecha Trike",
+		"imageUrl": "https://img.game8.co/4181121/b8d83ad367a775e8dc1b5958269a1041.png/original",
+		"filename": "Mecha_Trike.png"
+	},
+	{
+		"vehicleName": "Li'l Dumpy",
+		"imageUrl": "https://img.game8.co/4181108/df197c2106ee6f3e7bd59b3878e1fcef.png/original",
+		"filename": "Li_l_Dumpy.png"
+	},
+	{
+		"vehicleName": "Hyper Pipe",
+		"imageUrl": "https://img.game8.co/4188271/8d9566032d222f1dbc9df82dad6a63dd.png/original",
+		"filename": "Hyper_Pipe.png"
+	},
+	{
+		"vehicleName": "Pipe Frame",
+		"imageUrl": "https://img.game8.co/4188289/fbc7f378bdd4520f795f784b22c5326d.png/original",
+		"filename": "Pipe_Frame.png"
+	},
+	{
+		"vehicleName": "Biddybuggy",
+		"imageUrl": "https://img.game8.co/4181083/782046a542c1212a3ffe3d1fcae55225.png/original",
+		"filename": "Biddybuggy.png"
+	},
+	{
+		"vehicleName": "B Dasher",
+		"imageUrl": "https://img.game8.co/4188270/b94a325d701bee5bbb19dfdbb5b8e625.png/original",
+		"filename": "B_Dasher.png"
+	},
+	{
+		"vehicleName": "Tiny Titan",
+		"imageUrl": "https://img.game8.co/4188269/0402bddce92f061c9b09a624291b847f.png/original",
+		"filename": "Tiny_Titan.png"
+	},
+	{
+		"vehicleName": "Bumble V",
+		"imageUrl": "https://img.game8.co/4181111/c2d8add920db0c8fe27a9e75610e2310.png/original",
+		"filename": "Bumble_V.png"
+	},
+	{
+		"vehicleName": "Cloud 9",
+		"imageUrl": "https://img.game8.co/4181112/1ef76e528dcb8574ba784398bc50fe4c.png/original",
+		"filename": "Cloud_9.png"
+	},
+	{
+		"vehicleName": "Standard Bike",
+		"imageUrl": "https://img.game8.co/4181085/a5166d04730f6cc5ac70b7edb9032901.png/original",
+		"filename": "Standard_Bike.png"
+	},
+	{
+		"vehicleName": "Rally Bike",
+		"imageUrl": "https://img.game8.co/4181079/6947571125b147252373684ded47d57f.png/original",
+		"filename": "Rally_Bike.png"
+	},
+	{
+		"vehicleName": "Mach Rocket",
+		"imageUrl": "https://img.game8.co/4181086/c503f80e45532f80826b798a47abcdcf.png/original",
+		"filename": "Mach_Rocket.png"
+	},
+	{
+		"vehicleName": "Fin Twin",
+		"imageUrl": "https://img.game8.co/4181106/bfa27dd748da94e46a7c0509c902bdac.png/original",
+		"filename": "Fin_Twin.png"
+	},
+	{
+		"vehicleName": "Cute Scoot",
+		"imageUrl": "https://img.game8.co/4181080/2843627bc5b9587f792ede185220d9fb.png/original",
+		"filename": "Cute_Scoot.png"
+	},
+	{
+		"vehicleName": "W-Twin Chopper",
+		"imageUrl": "https://img.game8.co/4188288/4c4a5c4f86cdcab6fc406a60a10dd835.png/original",
+		"filename": "W-Twin_Chopper.png"
+	},
+	{
+		"vehicleName": "Lobster Roller",
+		"imageUrl": "https://img.game8.co/4188275/7521ecfdb064547572fc59eda72c6fb7.png/original",
+		"filename": "Lobster_Roller.png"
+	},
+	{
+		"vehicleName": "Tune Thumper",
+		"imageUrl": "https://img.game8.co/4188030/0f481401e0fdab36bcafe02991cb3c6c.png/original",
+		"filename": "Tune_Thumper.png"
+	},
+	{
+		"vehicleName": "Loco Moto",
+		"imageUrl": "https://img.game8.co/4181116/8f9076d686b6ae00b74dbb0f0442ffaa.png/original",
+		"filename": "Loco_Moto.png"
+	},
+	{
+		"vehicleName": "R.O.B. H.O.G.",
+		"imageUrl": "https://img.game8.co/4181122/5597e2eeb6b3005b98a65343081e7137.png/original",
+		"filename": "R_O_B__H_O_G_.png"
+	},
+	{
+		"vehicleName": "Dolphin Dasher",
+		"imageUrl": "https://img.game8.co/4181110/d386f8c19a8f9c66994791572e70b1d1.png/original",
+		"filename": "Dolphin_Dasher.png"
+	},
+	{
+		"vehicleName": "Bowser Bruiser",
+		"imageUrl": "https://img.game8.co/4188029/f58ff885d530cea1fc3ab63fe8afb31b.png/original",
+		"filename": "Bowser_Bruiser.png"
+	},
+	{
+		"vehicleName": "Funky Dorrie",
+		"imageUrl": "https://img.game8.co/4181084/33fe27077aa416300fb4bcca96bc6b31.png/original",
+		"filename": "Funky_Dorrie.png"
+	},
+	{
+		"vehicleName": "Rallygator",
+		"imageUrl": "https://img.game8.co/4188272/c1a06ba68c89313d5c0dfa93270186e3.png/original",
+		"filename": "Rallygator.png"
+	},
+	{
+		"vehicleName": "Dread Sled",
+		"imageUrl": "https://img.game8.co/4188273/296a663cc9269919b8407a87502650a6.png/original",
+		"filename": "Dread_Sled.png"
+	},
+	{
+		"vehicleName": "Junkyard Hog",
+		"imageUrl": "https://img.game8.co/4188248/00bfb600523bd92de2fa00f80e75e56a.png/original",
+		"filename": "Junkyard_Hog.png"
+	},
+	{
+		"vehicleName": "Roadster Royale",
+		"imageUrl": "https://img.game8.co/4188246/60206196b860ff32661ffa777f6a006c.png/original",
+		"filename": "Roadster_Royale.png"
+	}
+]
