@@ -58,6 +58,37 @@ const themeIcon = computed(() => {
 	}
 });
 
+// Settings functionality
+const showSettingsModal = ref(false);
+const enableConfetti = ref(true);
+
+// Settings persistence
+function saveSettings(): void {
+	if (import.meta.client) {
+		localStorage.setItem(
+			'mkwlog-settings',
+			JSON.stringify({
+				enableConfetti: enableConfetti.value,
+			})
+		);
+	}
+}
+
+function loadSettings(): void {
+	if (import.meta.client) {
+		const savedSettings = localStorage.getItem('mkwlog-settings');
+		if (savedSettings) {
+			const settings = JSON.parse(savedSettings);
+			enableConfetti.value = settings.enableConfetti ?? true;
+		}
+	}
+}
+
+// Watch for settings changes
+watch(enableConfetti, () => {
+	saveSettings();
+});
+
 // TypeScript interfaces
 interface TimeEntry {
 	time: string;
@@ -1232,6 +1263,7 @@ function getVehicleImagePath(vehicle: string): string {
 // Load data on mount
 onMounted(() => {
 	loadFromLocalStorage();
+	loadSettings();
 });
 
 // Time input formatting functions
@@ -1309,10 +1341,12 @@ function formatEditTimeInput(event: Event): void {
 
 // Confetti functions
 function triggerConfetti(): void {
-	showConfetti.value = true;
-	setTimeout(() => {
-		showConfetti.value = false;
-	}, 3000); // Hide after 3 seconds
+	if (enableConfetti.value) {
+		showConfetti.value = true;
+		setTimeout(() => {
+			showConfetti.value = false;
+		}, 3000); // Hide after 3 seconds
+	}
 }
 
 function getConfettiStyle(_index: number) {
@@ -1322,8 +1356,8 @@ function getConfettiStyle(_index: number) {
 	const randomDuration = 2500 + Math.random() * 1000; // 2.5-3.5 seconds
 	const randomSize = 8 + Math.random() * 6; // 8-14px
 
-	// Cone spread: angle between -60 and +60 degrees (120 degree cone)
-	const angle = (Math.random() - 0.5) * 120; // -60 to +60 degrees
+	// Cone spread: angle between -150 and +150 degrees (300 degree cone)
+	const angle = (Math.random() - 0.5) * 300; // -150 to +150 degrees
 	const velocity = 200 + Math.random() * 150; // 200-350px spread distance
 	const rotation = Math.random() * 720; // 0-720 degrees rotation
 
@@ -1697,11 +1731,12 @@ const timeRankings = computed(() => {
 			<!-- Header with Theme Switcher -->
 
 			<UContainer class="relative py-12">
-				<div class="absolute top-6 right-6 z-10">
+				<div class="absolute top-6 right-6 z-10 flex items-center gap-2">
 					<ClientOnly>
 						<UDropdownMenu :items="themeMenuItems" :ui="{ content: 'w-32' }">
 							<UButton variant="outline" color="neutral" size="sm" :icon="themeIcon" />
 						</UDropdownMenu>
+						<UButton variant="outline" color="neutral" size="sm" icon="i-lucide-settings" @click="showSettingsModal = true" />
 					</ClientOnly>
 				</div>
 				<!-- Hero Section -->
@@ -2150,6 +2185,21 @@ const timeRankings = computed(() => {
 								If you want to, you can check out the source code
 								<UButton variant="ghost" color="primary" trailing-icon="i-lucide-external-link" to="https://github.com/mkwlog" target="_blank" external> here </UButton>
 							</p>
+						</div>
+					</div>
+				</template>
+			</UModal>
+
+			<!-- Settings Modal -->
+			<UModal v-model:open="showSettingsModal" title="Settings">
+				<template #body>
+					<div class="space-y-6">
+						<!-- Confetti Settings -->
+						<div class="space-y-3">
+							<h4 class="font-medium">Animations</h4>
+							<div class="flex items-center space-y-3">
+								<USwitch v-model="enableConfetti" label="Confetti on Personal Best" description="Show confetti animation when you achieve a new personal best time" color="primary" />
+							</div>
 						</div>
 					</div>
 				</template>
