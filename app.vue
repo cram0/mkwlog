@@ -1,4 +1,5 @@
 <template>
+	<SpeedInsights />
 	<UApp>
 		<div class="min-h-screen">
 			<!-- Header with Theme Switcher -->
@@ -459,6 +460,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue';
 import type { TableColumn } from '@nuxt/ui';
+
+import { SpeedInsights } from '@vercel/speed-insights/nuxt';
 
 // SEO and Meta
 useSeoMeta({
