@@ -1689,8 +1689,6 @@ const timeRankings = computed(() => {
 
 	return rankings;
 });
-
-// ...existing code...
 </script>
 
 <template>
