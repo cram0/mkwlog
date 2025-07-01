@@ -1,5 +1,4 @@
 <template>
-	<SpeedInsights />
 	<UApp>
 		<div class="min-h-screen">
 			<!-- Header with Theme Switcher -->
@@ -22,108 +21,110 @@
 				<main class="mb-12 grid gap-8 lg:gap-12 xl:grid-cols-2">
 					<!-- Combo Management -->
 					<section aria-labelledby="combo-section">
-						<UCard class="shadow-lg">
+						<UCard variant="subtle" class="">
 							<template #header>
 								<div class="flex items-center justify-between">
 									<h2 id="combo-section" class="font-header flex items-center gap-2 text-xl font-bold">
 										<UIcon name="i-lucide-user" class="size-6" />
 										Your Combos
 									</h2>
-									<UButton color="primary" size="md" icon="i-lucide-plus" class="px-6 shadow-lg transition-all duration-200 hover:shadow-xl" @click="showCreateProfileForm = !showCreateProfileForm"> Add Combo </UButton>
+									<UButton color="primary" icon="i-lucide-plus" class="px-6 shadow-lg transition-all duration-200 hover:shadow-xl" @click="showCreateProfileForm = !showCreateProfileForm"> Add Combo </UButton>
 								</div>
 							</template>
 
-							<!-- Create Combo Form (collapsible) -->
-							<div v-if="showCreateProfileForm" class="border-muted mx-6 mb-6 rounded-xl border p-4">
-								<h3 class="mb-4 text-lg font-semibold">Create New Combo</h3>
-								<div class="space-y-4">
-									<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-										<UFormField label="Character" required class="space-y-2">
-											<USelectMenu v-model="newProfile.character" :items="characterOptions" placeholder="Choose character..." size="md" searchable class="w-full shadow-sm" @update:model-value="onCharacterChange" />
+							<div class="flex flex-col gap-6">
+								<!-- Create Combo Form (collapsible) -->
+								<div v-if="showCreateProfileForm" class="border-muted rounded-xl border p-4">
+									<h3 class="mb-4 text-lg font-semibold">Create New Combo</h3>
+									<div class="space-y-4">
+										<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+											<UFormField label="Character" required class="space-y-2">
+												<USelectMenu v-model="newProfile.character" :items="characterOptions" placeholder="Choose character..." searchable class="w-full" @update:model-value="onCharacterChange" />
+											</UFormField>
+											<UFormField label="Character Skin" required class="space-y-2">
+												<USelectMenu v-model="newProfile.characterSkin" :items="characterSkinOptions" placeholder="Select skin..." searchable :disabled="!newProfile.character" class="w-full" />
+											</UFormField>
+										</div>
+										<UFormField label="Vehicle" required class="space-y-2">
+											<USelectMenu v-model="newProfile.vehicle" :items="vehicleOptions" placeholder="Choose vehicle..." searchable class="w-full" />
 										</UFormField>
-										<UFormField label="Character Skin" required class="space-y-2">
-											<USelectMenu v-model="newProfile.characterSkin" :items="characterSkinOptions" placeholder="Select skin..." searchable :disabled="!newProfile.character" size="md" class="w-full shadow-sm" />
-										</UFormField>
-									</div>
-									<UFormField label="Vehicle" required class="space-y-2">
-										<USelectMenu v-model="newProfile.vehicle" :items="vehicleOptions" placeholder="Choose vehicle..." searchable size="md" class="w-full shadow-sm" />
-									</UFormField>
 
-									<!-- Stats tip -->
-									<div class="rounded-lg border border-blue-200 bg-blue-50 p-3 dark:border-blue-800 dark:bg-blue-900/20">
-										<p class="text-xs text-blue-700 dark:text-blue-300">
-											Don't know what combo to try? Check out
-											<UButton variant="ghost" color="primary" size="xs" icon="i-lucide-external-link" to="https://sarah.fyi/gaming/mkw/stats/" target="_blank" external class="h-auto p-1 text-xs font-bold"> sarahfyi's website </UButton>
-											for cool MKW stats!
-										</p>
-									</div>
-
-									<div class="flex gap-3 pt-2">
-										<UButton color="primary" size="md" icon="i-lucide-check" :disabled="!canCreateProfile" class="flex-1 shadow-lg transition-all duration-200 hover:shadow-xl" @click="createProfile"> Create Combo </UButton>
-										<UButton color="neutral" variant="outline" size="md" icon="i-lucide-x" class="hover: px-6 shadow-sm transition-all duration-200" @click="cancelCreateProfile"> Cancel </UButton>
-									</div>
-								</div>
-							</div>
-
-							<!-- Combo Selection Cards -->
-							<div v-if="profiles.length === 0 && !showCreateProfileForm" class="text-center">
-								<div class="/50 rounded-xl border-2 border-dashed border-gray-300 p-6 dark:border-gray-600">
-									<UIcon name="i-lucide-user-plus" class="mx-auto mb-4 size-16" />
-									<p class="mb-2 text-lg">No combos yet</p>
-									<p class="text-sm">Create your first combo to start tracking times!</p>
-								</div>
-							</div>
-
-							<div v-else class="mb-6 space-y-3">
-								<UCard v-for="profile in profiles" :key="profile.id" :class="['transform cursor-pointer border-0 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg', selectedProfileId === profile.id ? 'ring-primary-400 bg-primary-500/30' : '']" @click="selectProfile(profile.id)">
-									<div class="flex items-center justify-between">
-										<!-- Character and Vehicle Info -->
-										<div class="flex w-full items-center">
-											<!-- Character -->
-											<div class="flex basis-1/2 items-center gap-3">
-												<div class="rounded-xl p-2">
-													<NuxtImg :src="getCharacterImagePath(profile.character)" :alt="profile.character" class="size-8 rounded object-contain" loading="lazy" />
-												</div>
-												<div>
-													<p class="text-lg font-semibold">{{ profile.character }}</p>
-													<!-- <p class="text-sm">{{ profile.characterSkin }}</p> -->
-												</div>
-											</div>
-
-											<!-- Vehicle -->
-											<div class="flex basis-1/2 items-center gap-3">
-												<div class="rounded-xl p-2">
-													<NuxtImg :src="getVehicleImagePath(profile.vehicle)" :alt="profile.vehicle" class="size-8 rounded object-contain" loading="lazy" />
-												</div>
-												<p class="text-lg font-semibold">{{ profile.vehicle }}</p>
-											</div>
+										<!-- Stats tip -->
+										<div class="rounded-lg border border-blue-200 bg-blue-50 p-3 dark:border-blue-800 dark:bg-blue-900/20">
+											<p class="items-center text-xs text-blue-700 dark:text-blue-300">
+												Don't know what combo to try? Check out
+												<UButton variant="ghost" color="primary" size="xs" icon="i-lucide-external-link" to="https://sarah.fyi/gaming/mkw/stats/" target="_blank" external class="h-auto p-1 font-bold"> sarahfyi's website </UButton>
+												for cool MKW stats!
+											</p>
 										</div>
 
-										<!-- Actions -->
-										<div class="flex items-center gap-3">
-											<UPopover v-model:open="deleteProfilePopover[profile.id]">
-												<UButton color="error" variant="ghost" size="sm" icon="i-lucide-trash-2" class="transition-colors duration-200 hover:bg-red-50 dark:hover:bg-red-900/20" @click.stop />
-												<template #content>
-													<div class="max-w-xs rounded-lg p-4 shadow-xl">
-														<h4 class="mb-2 text-sm font-semibold">Delete Combo</h4>
-														<p class="mb-3 text-xs">Are you sure? Your existing times will remain unchanged.</p>
-														<div class="flex gap-2">
-															<UButton color="error" size="xs" @click="confirmDeleteProfile(profile.id)"> Delete </UButton>
-															<UButton color="neutral" variant="ghost" size="xs" @click="deleteProfilePopover[profile.id] = false"> Cancel </UButton>
-														</div>
+										<div class="flex gap-3 pt-2">
+											<UButton color="primary" block icon="i-lucide-check" :disabled="!canCreateProfile" class="flex-1" @click="createProfile"> Create Combo </UButton>
+											<UButton color="neutral" variant="outline" icon="i-lucide-x" class="hover: px-6 transition-all duration-200" @click="cancelCreateProfile"> Cancel </UButton>
+										</div>
+									</div>
+								</div>
+
+								<!-- Combo Selection Cards -->
+								<div v-if="profiles.length === 0 && !showCreateProfileForm" class="flex h-full flex-col items-center justify-center text-center">
+									<div class="border-muted rounded-xl border-2 border-dashed p-6">
+										<UIcon name="i-lucide-user-plus" class="mx-auto mb-4 size-16" />
+										<p class="mb-2 text-lg">No combos yet</p>
+										<p class="text-muted text-sm">Create your first combo to start tracking times!</p>
+									</div>
+								</div>
+
+								<div v-else class="space-y-3">
+									<UCard v-for="profile in profiles" :key="profile.id" :class="['transform cursor-pointer border-0', selectedProfileId === profile.id ? 'ring-primary-400 bg-primary-500/30' : '']" @click="selectProfile(profile.id)">
+										<div class="flex items-center justify-between">
+											<!-- Character and Vehicle Info -->
+											<div class="flex w-full items-center">
+												<!-- Character -->
+												<div class="flex basis-1/2 items-center gap-3">
+													<div class="rounded-xl">
+														<NuxtImg :src="getCharacterImagePath(profile.character)" :alt="profile.character" class="size-12 rounded object-contain" loading="lazy" />
 													</div>
-												</template>
-											</UPopover>
+													<div>
+														<p class="text-lg font-semibold">{{ profile.character }}</p>
+														<!-- <p class="text-sm">{{ profile.characterSkin }}</p> -->
+													</div>
+												</div>
+
+												<!-- Vehicle -->
+												<div class="flex basis-1/2 items-center gap-3">
+													<div class="rounded-xl">
+														<NuxtImg :src="getVehicleImagePath(profile.vehicle)" :alt="profile.vehicle" class="size-12 rounded object-contain" loading="lazy" />
+													</div>
+													<p class="text-lg font-semibold">{{ profile.vehicle }}</p>
+												</div>
+											</div>
+
+											<!-- Actions -->
+											<div class="flex items-center gap-3">
+												<UPopover v-model:open="deleteProfilePopover[profile.id]">
+													<UButton color="error" variant="ghost" size="sm" icon="i-lucide-trash-2" class="transition-colors duration-200 hover:bg-red-50 dark:hover:bg-red-900/20" @click.stop />
+													<template #content>
+														<div class="max-w-xs rounded-lg p-4 shadow-xl">
+															<h4 class="mb-2 text-sm font-semibold">Delete Combo</h4>
+															<p class="mb-3 text-xs">Are you sure? Your existing times will remain unchanged.</p>
+															<div class="flex gap-2">
+																<UButton color="error" size="xs" @click="confirmDeleteProfile(profile.id)"> Delete </UButton>
+																<UButton color="neutral" variant="ghost" size="xs" @click="deleteProfilePopover[profile.id] = false"> Cancel </UButton>
+															</div>
+														</div>
+													</template>
+												</UPopover>
+											</div>
 										</div>
-									</div>
-								</UCard>
+									</UCard>
+								</div>
 							</div>
 						</UCard>
 					</section>
 
 					<!-- Quick Time Entry -->
 					<section aria-labelledby="time-entry-section">
-						<UCard class="shadow-lg">
+						<UCard variant="subtle">
 							<template #header>
 								<div>
 									<h2 id="time-entry-section" class="font-header flex items-center gap-2 text-xl font-bold">
@@ -133,7 +134,7 @@
 								</div>
 							</template>
 
-							<div class="space-y-6 p-6">
+							<div class="space-y-6">
 								<!-- Time Input -->
 								<div class="text-center">
 									<UInput v-model="formState.time" placeholder="0:00.000" class="h-20 text-center font-mono text-3xl font-bold" size="xl" maxlength="8" @input="formatTimeInput" @keydown.enter="addTime" />
@@ -146,7 +147,7 @@
 										<span v-if="recentCircuits.length > 0" class="text-dimmed ml-1 text-xs">(scroll horizontally)</span>
 									</h3>
 									<div v-if="recentCircuits.length === 0" class="text-muted py-4 text-center text-sm">No recent circuits. Select a circuit from below to add it here.</div>
-									<div v-else ref="recentCircuitsScrollRef" class="scrollbar-thin scrollbar-thumb-muted overflow-x-auto p-2">
+									<div v-else ref="recentCircuitsScrollRef" class="scrollbar-thin scrollbar-thumb-muted mb-4 overflow-x-auto p-2">
 										<div class="flex min-w-max gap-4 pb-2">
 											<UCard v-for="circuit in recentCircuits" :key="circuit" :class="['w-48 flex-shrink-0 cursor-pointer p-3 transition-all duration-100', selectedCircuit === circuit ? 'ring-primary bg-primary/10 dark:bg-primary/5 ring-2' : 'hover:ring-muted hover:ring-1']" @click="selectRecentCircuit(circuit)">
 												<div class="text-center">
@@ -191,7 +192,7 @@
 
 				<!-- Times Table - Full Width -->
 				<section aria-labelledby="times-table-section">
-					<UCard class="w-full">
+					<UCard class="w-full" variant="subtle">
 						<template #header>
 							<div class="flex items-center justify-between">
 								<h2 id="times-table-section" class="font-header flex items-center gap-2 text-xl font-bold">
@@ -208,10 +209,10 @@
 									<div class="flex items-center gap-2">
 										<input ref="csvFileInput" type="file" accept=".csv" class="hidden" @change="importFromCSV" />
 										<UTooltip text="Import CSV file with columns: time_of_entry, track, character, outfit, kart, race_time">
-											<UButton variant="outline" color="neutral" size="sm" icon="i-lucide-upload" @click="triggerFileInput"> Import CSV </UButton>
+											<UButton variant="outline" color="neutral" size="sm" icon="i-lucide-download" @click="triggerFileInput"> Import CSV </UButton>
 										</UTooltip>
 										<UTooltip text="Download all your times as a CSV file with the specified column format">
-											<UButton v-if="times.length > 0" variant="outline" color="neutral" size="sm" icon="i-lucide-download" @click="exportToCSV"> Export CSV </UButton>
+											<UButton v-if="times.length > 0" variant="outline" color="neutral" size="sm" icon="i-lucide-upload" @click="exportToCSV"> Export CSV </UButton>
 										</UTooltip>
 									</div>
 
@@ -228,11 +229,23 @@
 						<div v-else>
 							<!-- Filters -->
 							<div class="mb-6 space-y-4">
-								<!-- Search Times -->
-								<div class="w-full max-w-md">
-									<UFormField label="Search Times">
-										<UInput v-model="filters.timeSearch" placeholder="Search time..." icon="i-lucide-search" size="sm" clearable />
-									</UFormField>
+								<!-- Search Times and Date Toggle -->
+								<div class="flex items-center gap-4">
+									<div class="w-full max-w-md">
+										<UFormField label="Search Times">
+											<UInput v-model="filters.timeSearch" placeholder="Search time..." icon="i-lucide-search" size="sm" clearable />
+										</UFormField>
+									</div>
+
+									<!-- Date Display Toggle -->
+									<!-- <div v-if="times.length > 0" class="flex items-center gap-2">
+										<UFormField label="Date Format">
+											<div class="flex items-center gap-2">
+												<USwitch v-model="showRelativeTime" size="sm" color="primary" :checked-icon="'i-lucide-clock'" :unchecked-icon="'i-lucide-calendar'" />
+												<span class="text-muted text-sm font-medium">{{ showRelativeTime ? 'Relative' : 'Absolute' }}</span>
+											</div>
+										</UFormField>
+									</div> -->
 								</div>
 
 								<!-- Filter Options -->
@@ -305,7 +318,7 @@
 									<template #date-cell="{ row }">
 										<span class="text-muted flex items-center gap-1 text-sm">
 											<UIcon name="i-lucide-calendar" class="size-4" />
-											{{ formatDate(row.original.date) }}
+											{{ showRelativeTime ? formatRelativeDate(row.original.date) : formatDate(row.original.date) }}
 										</span>
 									</template>
 
@@ -506,8 +519,12 @@ const themeMenuItems = computed(() => [
 // Theme icon based on current preference
 const themeIcon = computed(() => {
 	switch (colorMode.preference) {
+		case 'light':
+			return 'i-lucide-sun';
 		case 'Light':
 			return 'i-lucide-sun';
+		case 'dark':
+			return 'i-lucide-moon';
 		case 'Dark':
 			return 'i-lucide-moon';
 		default:
@@ -594,6 +611,9 @@ const showAboutModal = ref(false);
 // Popover state for confirmations
 const deleteProfilePopover = ref<Record<string, boolean>>({});
 const deleteTimePopover = ref<Record<number, boolean>>({});
+
+// Date display preference
+const showRelativeTime = ref(false);
 
 // Filtering and pagination state
 const filters = ref({
@@ -1167,6 +1187,16 @@ watch(
 	}
 );
 
+// Watch for relative time preference changes to save to localStorage
+watch(
+	() => showRelativeTime.value,
+	() => {
+		if (import.meta.client) {
+			localStorage.setItem('mario-kart-show-relative-time', JSON.stringify(showRelativeTime.value));
+		}
+	}
+);
+
 // Convert time string (e.g., "1:32.456") to seconds for comparison
 function convertTimeToSeconds(timeStr: string): number {
 	const parts: string[] = timeStr.split(':');
@@ -1187,6 +1217,56 @@ function formatDate(date: string): string {
 		hour: '2-digit',
 		minute: '2-digit',
 	});
+}
+
+// Format date as relative time (e.g., "2 hours ago", "today")
+function formatRelativeDate(date: string): string {
+	const now = new Date();
+	const recordDate = new Date(date);
+	const diffInMs = now.getTime() - recordDate.getTime();
+	const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
+	const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
+	const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+
+	// Keep the time part for display
+	const timeStr = recordDate.toLocaleTimeString('en-US', {
+		hour: '2-digit',
+		minute: '2-digit',
+	});
+
+	// Determine relative date part
+	let relativePart = '';
+	if (diffInMinutes < 1) {
+		relativePart = 'Just now';
+	} else if (diffInMinutes < 60) {
+		relativePart = `${diffInMinutes} min ago`;
+	} else if (diffInHours < 24) {
+		relativePart = `${diffInHours}h ago`;
+	} else if (diffInDays === 0) {
+		relativePart = 'Today';
+	} else if (diffInDays === 1) {
+		relativePart = 'Yesterday';
+	} else if (diffInDays < 7) {
+		relativePart = `${diffInDays} days ago`;
+	} else if (diffInDays < 30) {
+		const weeks = Math.floor(diffInDays / 7);
+		relativePart = weeks === 1 ? '1 week ago' : `${weeks} weeks ago`;
+	} else if (diffInDays < 365) {
+		const months = Math.floor(diffInDays / 30);
+		relativePart = months === 1 ? '1 month ago' : `${months} months ago`;
+	} else {
+		const years = Math.floor(diffInDays / 365);
+		relativePart = years === 1 ? '1 year ago' : `${years} years ago`;
+	}
+
+	// For "Just now", "Today", "Yesterday" show just the relative part with time
+	if (diffInMinutes < 1) {
+		return relativePart;
+	} else if (diffInDays <= 1) {
+		return `${relativePart} at ${timeStr}`;
+	} else {
+		return `${relativePart} (${timeStr})`;
+	}
 }
 
 // Add new time
@@ -1269,6 +1349,7 @@ function saveToLocalStorage(): void {
 		localStorage.setItem('mario-kart-times', JSON.stringify(times.value));
 		localStorage.setItem('mario-kart-profiles', JSON.stringify(profiles.value));
 		localStorage.setItem('mario-kart-recent-circuits', JSON.stringify(recentCircuitsList.value));
+		localStorage.setItem('mario-kart-show-relative-time', JSON.stringify(showRelativeTime.value));
 
 		// Auto-save to CSV in the background (optional)
 		autoExportToCSV();
@@ -1324,6 +1405,11 @@ function loadFromLocalStorage(): void {
 		const savedRecentCircuits: string | null = localStorage.getItem('mario-kart-recent-circuits');
 		if (savedRecentCircuits) {
 			recentCircuitsList.value = JSON.parse(savedRecentCircuits) as string[];
+		}
+
+		const savedShowRelativeTime: string | null = localStorage.getItem('mario-kart-show-relative-time');
+		if (savedShowRelativeTime) {
+			showRelativeTime.value = JSON.parse(savedShowRelativeTime) as boolean;
 		}
 
 		// Auto-select most recent circuit if any recent circuits exist
@@ -1964,6 +2050,7 @@ function confirmResetAllData(): void {
 		localStorage.removeItem('mario-kart-profiles');
 		localStorage.removeItem('mario-kart-recent-circuits');
 		localStorage.removeItem('mario-kart-csv-backup');
+		localStorage.removeItem('mario-kart-show-relative-time');
 	}
 
 	// Reset all reactive state
