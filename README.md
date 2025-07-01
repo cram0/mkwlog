@@ -34,7 +34,7 @@ MKWLog is a web application for tracking your Mario Kart World time attack progr
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/mkwlog.git
+git clone https://github.com/cram0/mkwlog.git
 cd mkwlog
 ```
 
