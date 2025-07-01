@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue';
-import type { TableColumn } from '@nuxt/ui';
+import type { TableColumn, DropdownMenuItem } from '@nuxt/ui';
 
 // SEO and Meta
 useSeoMeta({
@@ -22,7 +22,7 @@ useSeoMeta({
 const colorMode = useColorMode();
 
 // Theme menu items for dropdown
-const themeMenuItems = computed(() => [
+const themeMenuItems = ref<DropdownMenuItem[][]>([
 	[
 		{
 			label: 'Light',
@@ -42,21 +42,16 @@ const themeMenuItems = computed(() => [
 	],
 ]);
 
-// Theme icon based on current preference
-const themeIcon = computed(() => {
-	switch (colorMode.preference) {
+const getThemeIcon = (preference: string) => {
+	switch (preference) {
 		case 'light':
 			return 'i-lucide-sun';
-		case 'Light':
-			return 'i-lucide-sun';
 		case 'dark':
-			return 'i-lucide-moon';
-		case 'Dark':
 			return 'i-lucide-moon';
 		default:
 			return 'i-lucide-monitor';
 	}
-});
+};
 
 // Settings functionality
 const showSettingsModal = ref(false);
@@ -1735,12 +1730,10 @@ const timeRankings = computed(() => {
 
 			<UContainer class="relative py-12">
 				<div class="absolute top-6 right-6 z-10 flex items-center gap-2">
-					<ClientOnly>
-						<UDropdownMenu :items="themeMenuItems" :ui="{ content: 'w-32' }">
-							<UButton variant="outline" color="neutral" size="sm" :icon="themeIcon">{{}}</UButton>
-						</UDropdownMenu>
-						<UButton variant="outline" color="neutral" size="sm" icon="i-lucide-settings" @click="showSettingsModal = true">Settings</UButton>
-					</ClientOnly>
+					<UDropdownMenu :items="themeMenuItems" :ui="{ content: 'w-32' }">
+						<UButton variant="soft" color="neutral" size="sm" :icon="getThemeIcon(colorMode.preference)" />
+					</UDropdownMenu>
+					<UButton variant="soft" color="neutral" size="sm" icon="i-lucide-settings" @click="showSettingsModal = true">Settings</UButton>
 				</div>
 				<!-- Hero Section -->
 				<header class="mb-12 text-center">
