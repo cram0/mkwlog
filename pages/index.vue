@@ -2101,7 +2101,8 @@ const timeRankings = computed(() => {
 						</div>
 						<div class="text-muted max-w-md text-xs">
 							<p class="mb-1">Mario Kart and all related trademarks are property of Nintendo Co., Ltd.</p>
-							<p>This is an unofficial project. Nintendo owns everything, I own nothing.</p>
+							<p class="mb-3">This is an unofficial project. Nintendo owns everything, I own nothing.</p>
+							<p>Vehicle and character assets sourced from <UButton variant="ghost" color="primary" size="xs" to="https://game8.co" target="_blank" external class="p-0 text-xs underline">Game8</UButton>.</p>
 						</div>
 						<!-- Footer Buttons -->
 						<div class="flex items-center gap-4 pt-2">
@@ -2164,14 +2165,6 @@ const timeRankings = computed(() => {
 			<UModal v-model:open="showAboutModal" title="About Mario Kart World Time Logger">
 				<template #body>
 					<div class="space-y-4">
-						<div class="flex items-center gap-3 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-900/20">
-							<UIcon name="i-lucide-shield-check" class="size-6 flex-shrink-0 text-blue-500" />
-							<div>
-								<p class="text-sm font-medium text-blue-800 dark:text-blue-200">Your privacy is protected</p>
-								<p class="text-xs text-blue-600 dark:text-blue-400">All data stays on your device</p>
-							</div>
-						</div>
-
 						<div class="space-y-3 text-sm">
 							<p>This app keeps your data private :</p>
 
