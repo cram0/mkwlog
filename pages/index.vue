@@ -1526,7 +1526,7 @@ function importFromCSV(event: Event): void {
 					}
 
 					// Validate time format
-					if (!/^\d+:\d{2}\.\d{3}$/.test(csvEntry.race_time)) {
+					if (!/^\d{1}:\d{2}\.\d{3}$/.test(csvEntry.race_time)) {
 						errors.push(`Row ${i + 1}: Invalid time format (should be M:SS.mmm)`);
 						continue;
 					}
