@@ -71,10 +71,18 @@ function saveSettings(): void {
 
 function loadSettings(): void {
 	if (import.meta.client) {
-		const savedSettings = localStorage.getItem('mkwlog-settings');
-		if (savedSettings) {
-			const settings = JSON.parse(savedSettings);
-			enableConfetti.value = settings.enableConfetti ?? true;
+		try {
+			const savedSettings = localStorage.getItem('mkwlog-settings');
+			if (savedSettings) {
+				const settings = JSON.parse(savedSettings);
+				if (typeof settings === 'object' && settings !== null) {
+					enableConfetti.value = settings.enableConfetti ?? true;
+				}
+			}
+		} catch (error) {
+			console.warn('Failed to load settings from localStorage:', error);
+			// Reset to defaults on parse error
+			enableConfetti.value = true;
 		}
 	}
 }
@@ -901,13 +909,17 @@ function confirmRemoveTime(index: number): void {
 // Save to localStorage
 function saveToLocalStorage(): void {
 	if (import.meta.client) {
-		localStorage.setItem('mario-kart-times', JSON.stringify(times.value));
-		localStorage.setItem('mario-kart-profiles', JSON.stringify(profiles.value));
-		localStorage.setItem('mario-kart-recent-circuits', JSON.stringify(recentCircuitsList.value));
-		localStorage.setItem('mario-kart-show-relative-time', JSON.stringify(showRelativeTime.value));
+		try {
+			localStorage.setItem('mario-kart-times', JSON.stringify(times.value));
+			localStorage.setItem('mario-kart-profiles', JSON.stringify(profiles.value));
+			localStorage.setItem('mario-kart-recent-circuits', JSON.stringify(recentCircuitsList.value));
+			localStorage.setItem('mario-kart-show-relative-time', JSON.stringify(showRelativeTime.value));
 
-		// Auto-save to CSV in the background (optional)
-		autoExportToCSV();
+			// Auto-save to CSV in the background (optional)
+			autoExportToCSV();
+		} catch (error) {
+			console.warn('Failed to save to localStorage (likely storage full):', error);
+		}
 	}
 }
 
@@ -943,28 +955,60 @@ function autoExportToCSV(): void {
 // Load from localStorage
 function loadFromLocalStorage(): void {
 	if (import.meta.client) {
-		const savedTimes: string | null = localStorage.getItem('mario-kart-times');
-		if (savedTimes) {
-			times.value = JSON.parse(savedTimes) as TimeEntry[];
-		}
-
-		const savedProfiles: string | null = localStorage.getItem('mario-kart-profiles');
-		if (savedProfiles) {
-			profiles.value = JSON.parse(savedProfiles) as Profile[];
-			// Auto-select first profile if none selected
-			if (profiles.value.length > 0 && !selectedProfileId.value) {
-				selectedProfileId.value = profiles.value[0].id;
+		try {
+			const savedTimes: string | null = localStorage.getItem('mario-kart-times');
+			if (savedTimes) {
+				const parsedTimes = JSON.parse(savedTimes);
+				if (Array.isArray(parsedTimes)) {
+					times.value = parsedTimes as TimeEntry[];
+				}
 			}
+		} catch (error) {
+			console.warn('Failed to load times from localStorage:', error);
+			times.value = [];
 		}
 
-		const savedRecentCircuits: string | null = localStorage.getItem('mario-kart-recent-circuits');
-		if (savedRecentCircuits) {
-			recentCircuitsList.value = JSON.parse(savedRecentCircuits) as string[];
+		try {
+			const savedProfiles: string | null = localStorage.getItem('mario-kart-profiles');
+			if (savedProfiles) {
+				const parsedProfiles = JSON.parse(savedProfiles);
+				if (Array.isArray(parsedProfiles)) {
+					profiles.value = parsedProfiles as Profile[];
+					// Auto-select first profile if none selected
+					if (profiles.value.length > 0 && !selectedProfileId.value) {
+						selectedProfileId.value = profiles.value[0].id;
+					}
+				}
+			}
+		} catch (error) {
+			console.warn('Failed to load profiles from localStorage:', error);
+			profiles.value = [];
 		}
 
-		const savedShowRelativeTime: string | null = localStorage.getItem('mario-kart-show-relative-time');
-		if (savedShowRelativeTime) {
-			showRelativeTime.value = JSON.parse(savedShowRelativeTime) as boolean;
+		try {
+			const savedRecentCircuits: string | null = localStorage.getItem('mario-kart-recent-circuits');
+			if (savedRecentCircuits) {
+				const parsedCircuits = JSON.parse(savedRecentCircuits);
+				if (Array.isArray(parsedCircuits)) {
+					recentCircuitsList.value = parsedCircuits as string[];
+				}
+			}
+		} catch (error) {
+			console.warn('Failed to load recent circuits from localStorage:', error);
+			recentCircuitsList.value = [];
+		}
+
+		try {
+			const savedShowRelativeTime: string | null = localStorage.getItem('mario-kart-show-relative-time');
+			if (savedShowRelativeTime) {
+				const parsedSetting = JSON.parse(savedShowRelativeTime);
+				if (typeof parsedSetting === 'boolean') {
+					showRelativeTime.value = parsedSetting;
+				}
+			}
+		} catch (error) {
+			console.warn('Failed to load relative time setting from localStorage:', error);
+			showRelativeTime.value = true;
 		}
 
 		// Auto-select most recent circuit if any recent circuits exist
@@ -1464,6 +1508,9 @@ function exportToCSV(): void {
 	document.body.appendChild(link);
 	link.click();
 	document.body.removeChild(link);
+
+	// Clean up object URL to prevent memory leaks
+	URL.revokeObjectURL(url);
 }
 
 // Import times from CSV
@@ -1472,6 +1519,14 @@ function importFromCSV(event: Event): void {
 	const file = input.files?.[0];
 
 	if (!file) return;
+
+	// Basic file size check to prevent browser freeze (50MB max)
+	const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB - generous for CSV
+	if (file.size > MAX_FILE_SIZE) {
+		alert('File too large. Maximum size is 50MB.');
+		input.value = '';
+		return;
+	}
 
 	const reader = new FileReader();
 	reader.onload = (e) => {
@@ -1514,7 +1569,7 @@ function importFromCSV(event: Event): void {
 
 					// Map values to headers
 					headers.forEach((header, index) => {
-						if (expectedHeaders.includes(header)) {
+						if (expectedHeaders.includes(header) && values[index]) {
 							csvEntry[header as keyof CSVTimeEntry] = values[index].replace(/"/g, '');
 						}
 					});
