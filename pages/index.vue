@@ -232,6 +232,60 @@ const newCircuitSelection = ref({
 // Mario Kart World circuits (alphabetically ordered)
 const circuits: string[] = ['Acorn Heights', 'Airship Fortress', 'Boo Cinema', "Bowser's Castle", 'Cheep Cheep Falls', 'Choco Mountain', 'Crown City', 'Dandelion Depths', 'Desert Hills', 'Dino Dino Jungle', 'DK Pass', 'DK Spaceport', 'Dry Bones Burnout', 'Faraway Oasis', 'Great Block Ruins', 'Koopa Troopa Beach', 'Mario Bros. Circuit', 'Mario Circuit', 'Moo Moo Meadows', 'Peach Beach', 'Peach Stadium', 'Rainbow Road', 'Salty Salty Speedway', 'Shy Guy Bazaar', 'Sky-High Sundae', 'Starview Peak', "Toad's Factory", 'Wario Shipyard', 'Wario Stadium', 'Whistlestop Summit'];
 
+// Character to image filename mapping (based on actual files in /public/characters/)
+const characterImageMap: Record<string, string> = {
+	Mario: 'Mario.png',
+	Luigi: 'Luigi.png',
+	Peach: 'Peach.png',
+	Daisy: 'Daisy.png',
+	Yoshi: 'Yoshi.png',
+	'Donkey Kong': 'Donkey_Kong.png',
+	Bowser: 'Bowser.png',
+	'Bowser Jr.': 'Bowser_Jr.png',
+	'Koopa Troopa': 'Koopa_Troopa.png',
+	Toad: 'Toad.png',
+	Toadette: 'Toadette.png',
+	Lakitu: 'Lakitu.png',
+	'King Boo': 'King_Boo.png',
+	'Shy Guy': 'Shy_Guy.png',
+	Wario: 'Wario.png',
+	Waluigi: 'Waluigi.png',
+	Birdo: 'Birdo.png',
+	Pauline: 'Pauline.png',
+	Rosalina: 'Rosalina.png',
+	'Baby Mario': 'Baby_Mario.png',
+	'Baby Luigi': 'Baby_Luigi.png',
+	'Baby Peach': 'Baby_Peach.png',
+	'Baby Daisy': 'Baby_Daisy.png',
+	'Baby Rosalina': 'Baby_Rosalina.png',
+	Nabbit: 'Nabbit.png',
+	'Piranha Plant': 'Piranha_Plant.png',
+	'Hammer Bro': 'Hammer_Bro.png',
+	'Monty Mole': 'Monty_Mole.png',
+	Goomba: 'Goomba.png',
+	Sidestepper: 'Sidestepper.png',
+	'Cheep Cheep': 'Cheep_Cheep.png',
+	'Dry Bones': 'Dry_Bones.png',
+	Wiggler: 'Wiggler.png',
+	Pokey: 'Pokey.png',
+	Cow: 'Cow.png',
+	Stingby: 'Stingby.png',
+	Snowman: 'Snowman.png',
+	Penguin: 'Penguin.png',
+	'Para-Biddybud': 'Para-Biddybud.png',
+	Spike: 'Spike.png',
+	Cataquack: 'Cataquack.png',
+	Pianta: 'Pianta.png',
+	'Rocky Wrench': 'Rocky_Wrench.png',
+	Conkdor: 'Conkdor.png',
+	Peepa: 'Peepa.png',
+	Swoop: 'Swoop.png',
+	'Fish Bone': 'Fish_Bone.png',
+	'Coin Coffer': 'Coin_Coffer.png',
+	Dolphin: 'Dolphin.png',
+	"Chargin' Chuck": 'Chargin_Chuck.png',
+};
+
 // Mario Kart World characters with their skins
 const characterSkins: Record<string, string[]> = {
 	// Main characters with multiple skins
@@ -554,6 +608,55 @@ const canSubmitTime = computed(() => {
 const recentCircuits = computed(() => {
 	return recentCircuitsList.value.slice(0, 8);
 });
+
+// Vehicle to image filename mapping (based on actual files in /public/vehicles/)
+const vehicleImageMap: Record<string, string> = {
+	// Karts
+	'Standard Kart': 'Standard_Kart.png',
+	'Rally Kart': 'Rally_Kart.png',
+	Plushbuggy: 'Plushbuggy.png',
+	'Baby Blooper': 'Baby_Blooper.png',
+	'Zoom Buggy': 'Zoom_Buggy.png',
+	"Chargin' Truck": 'Chargin_Truck.png',
+	'Hot Rod': 'Hot_Rod.png',
+	'Ribbit Revster': 'Ribbit_Revster.png',
+	'Roadster Royale': 'Roadster_Royale.png',
+	'B Dasher': 'B_Dasher.png',
+	Biddybuggy: 'Biddybuggy.png',
+	'Tiny Titan': 'Tiny_Titan.png',
+	'Stellar Sled': 'Stellar_Sled.png',
+	'Reel Racer': 'Reel_Racer.png',
+	'Bumble V': 'Bumble_V.png',
+	'Carpet Flyer': 'Carpet_Flyer.png',
+	'Cloud 9': 'Cloud_9.png',
+	'Blastronaut III': 'Blastronaut_III.png',
+	'Big Horn': 'Big_Horn.png',
+	"Li'l Dumpy": 'Li_l_Dumpy.png',
+	'Mecha Trike': 'Mecha_Trike.png',
+	'Pipe Frame': 'Pipe_Frame.png',
+	Billdozer: 'Billdozer.png',
+
+	// Bikes
+	'Standard Bike': 'Standard_Bike.png',
+	'Rally Bike': 'Rally_Bike.png',
+	'Cute Scoot': 'Cute_Scoot.png',
+	'Mach Rocket': 'Mach_Rocket.png',
+	'Hyper Pipe': 'Hyper_Pipe.png',
+	'Tune Thumper': 'Tune_Thumper.png',
+	'W-Twin Chopper': 'W-Twin_Chopper.png',
+	'Fin Twin': 'Fin_Twin.png',
+	'R.O.B. H.O.G.': 'R_O_B_H_O_G.png',
+	'Dolphin Dasher': 'Dolphin_Dasher.png',
+	'Loco Moto': 'Loco_Moto.png',
+
+	// ATVs
+	'Funky Dorrie': 'Funky_Dorrie.png',
+	'Junkyard Hog': 'Junkyard_Hog.png',
+	'Lobster Roller': 'Lobster_Roller.png',
+	'Dread Sled': 'Dread_Sled.png',
+	Rallygator: 'Rallygator.png',
+	'Bowser Bruiser': 'Bowser_Bruiser.png',
+};
 
 // Mario Kart World vehicles
 const vehicles: string[] = [
@@ -1282,24 +1385,26 @@ function getCircuitImagePath(circuit: string): string {
 	return `/circuits/${fileName}.png`;
 }
 
-// Get character image path
+// Get character image path using direct filename mapping
 function getCharacterImagePath(character: string): string {
-	// Convert character name to filename format (match character-downloader.ts logic)
-	const fileName = character
-		.replace(/[^a-zA-Z0-9_-]/g, '_')
-		.replace(/__+/g, '_') // Replace multiple underscores with single
-		.replace(/^_|_$/g, ''); // Remove leading/trailing underscores
-	return `/characters/${fileName}.png`;
+	const fileName = characterImageMap[character];
+	if (fileName) {
+		return `/characters/${fileName}`;
+	}
+	// Fallback to Mario if character not found
+	console.warn(`Character image not found for: ${character}, using Mario as fallback`);
+	return `/characters/Mario.png`;
 }
 
-// Get vehicle image path
+// Get vehicle image path using direct filename mapping
 function getVehicleImagePath(vehicle: string): string {
-	// Convert vehicle name to filename format (match vehicle-downloader.ts logic)
-	const fileName = vehicle
-		.replace(/[^a-zA-Z0-9_-]/g, '_')
-		.replace(/__+/g, '_') // Replace multiple underscores with single
-		.replace(/^_|_$/g, ''); // Remove leading/trailing underscores
-	return `/vehicles/${fileName}.png`;
+	const fileName = vehicleImageMap[vehicle];
+	if (fileName) {
+		return `/vehicles/${fileName}`;
+	}
+	// Fallback to Standard Kart if vehicle not found
+	console.warn(`Vehicle image not found for: ${vehicle}, using Standard Kart as fallback`);
+	return `/vehicles/Standard_Kart.png`;
 }
 
 // Load data on mount
