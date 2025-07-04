@@ -2032,8 +2032,8 @@ const timeRankings = computed(() => {
 									</h3>
 									<div v-if="recentCircuits.length === 0" class="text-muted py-4 text-center text-sm">No recent circuits. Select a circuit from below to add it here.</div>
 									<div v-else ref="recentCircuitsScrollRef" class="scrollbar-thin scrollbar-thumb-muted mb-4 overflow-x-auto p-2">
-										<div class="flex min-w-max gap-4 pb-2">
-											<UCard v-for="circuit in recentCircuits" :key="circuit" :class="['w-48 flex-shrink-0 cursor-pointer p-3 transition-all duration-100', selectedCircuit === circuit ? 'ring-primary bg-primary/10 dark:bg-primary/5 ring-2' : 'hover:ring-muted hover:ring-1']" @click="selectRecentCircuit(circuit)">
+										<div class="flex flex-col gap-4 pb-2 md:flex-row">
+											<UCard v-for="circuit in recentCircuits" :key="circuit" :class="['flex-shrink-0 cursor-pointer p-3 transition-all duration-100 md:w-48', selectedCircuit === circuit ? 'ring-primary bg-primary/10 dark:bg-primary/5 ring-2' : 'hover:ring-muted hover:ring-1']" @click="selectRecentCircuit(circuit)">
 												<div class="text-center">
 													<NuxtImg :src="getCircuitImagePath(circuit)" :alt="circuit" class="mx-auto h-24 w-24 rounded object-contain" loading="lazy" />
 													<p class="text-xs font-medium">
