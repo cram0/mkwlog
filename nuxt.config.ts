@@ -5,6 +5,15 @@ export default defineNuxtConfig({
 	css: ['~/assets/css/main.css'],
 	modules: ['@nuxt/eslint', '@nuxt/fonts', '@nuxt/icon', '@nuxt/image', '@nuxt/ui', 'nuxt-security'],
 
+	security: {
+		strict: true,
+		headers: {
+			contentSecurityPolicy: {
+				'img-src': ["'self'", 'data:'],
+				'style-src': ["'self'", "'unsafe-inline'"],
+			},
+		},
+	},
 	// SEO Configuration
 	app: {
 		head: {
