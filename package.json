@@ -20,6 +20,7 @@
 		"@vercel/speed-insights": "^1.2.0",
 		"eslint": "^9.30.0",
 		"nuxt": "^3.17.5",
+		"nuxt-security": "2.2.0",
 		"typescript": "^5.8.3",
 		"vue": "^3.5.17",
 		"vue-router": "^4.5.1"
